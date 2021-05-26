@@ -120,7 +120,7 @@
         public function selectBatimentStock($refE){
            
             $sql = "SELECT BA_ID, BA_Nom FROM Batiments WHERE FK_EN = :refE";
-            $req = $this->dbh->prepare($sql);
+            $req = $this->pdo->prepare($sql);
             $req->execute(array(":refE" => $refE));
             return $req->fetchAll();
 
@@ -129,7 +129,7 @@
         public function selectModuleStock($refE, $refB){
            
             $sql = "SELECT MO_ID FROM Module WHERE FK_EN = :refE && FK_BA = :refB";
-            $req = $this->dbh->prepare($sql);
+            $req = $this->pdo->prepare($sql);
             $req->execute(array(":refE" => $refE, ":refB" => $refB));
             return $req->fetchAll();
 
@@ -138,26 +138,35 @@
         public function selectRayonStock($refE, $refB, $refM){
            
             $sql = "SELECT RA_ID FROM Rayon WHERE FK_EN = :refE && FK_BA = :refB && FK_MO = :refM";
-            $req = $this->dbh->prepare($sql);
+            $req = $this->pdo->prepare($sql);
             $req->execute(array(":refE" => $refE, ":refB" => $refB, ":refM" => $refM));
             return $req->fetchAll();
 
         }
-
+//
         public function selectSectionStock($refE, $refB, $refM, $refR){
            
             $sql = "SELECT SE_ID, SE_Nom FROM Section WHERE FK_EN = :refE && FK_BA = :refB && FK_MO = :refM && FK_RA = :refR";
-            $req = $this->dbh->prepare($sql);
+            $req = $this->pdo->prepare($sql);
             $req->execute(array(":refE" => $refE, ":refB" => $refB, ":refM" => $refM, ":refR" => $refR));
             return $req->fetchAll();
 
         }
-
+//
         public function selectEtagereStock($refE, $refB, $refM, $refR, $refS){
            
             $sql = "SELECT ET_ID, ET_Nom FROM Etagere WHERE FK_EN = :refE && FK_BA = :refB && FK_MO = :refM && FK_RA = :refR && FK_SE = :refS";
-            $req = $this->dbh->prepare($sql);
+            $req = $this->pdo->prepare($sql);
             $req->execute(array(":refE" => $refE, ":refB" => $refB, ":refM" => $refM, ":refR" => $refR, ":refS" => $refS));
+            return $req->fetchAll();
+
+        }
+
+        public function selectCelluleStock($refE, $refB, $refM, $refR, $refS, $refET){
+
+            $sql = "SELECT CE_ID FROM Cellule WHERE FK_EN = :refE && FK_BA = :refB && FK_MO = :refM && FK_RA = :refR && FK_SE = :refS && FK_ET = :refET";
+            $req = $this->pdo->prepare($sql);
+            $req->execute(array(":refE" => $refE, ":refB" => $refB, ":refM" => $refM, ":refR" => $refR, ":refS" => $refS, ":refET" => $refET));
             return $req->fetchAll();
 
         }
@@ -166,9 +175,9 @@
 
             
             $sql = "INSERT INTO `Presente`(`FK_PR`, `FK_EN`, `FK_BA`,`FK_MO`, `FK_RA`, `FK_SE`, `FK_ET`, `FK_CE`, PRE_Quantite) VALUES (:refP, :refE, :refB, :refM, :refR, :refS, :refET, :refCE, :quantite)";
-            $req = $this->dbh->prepare($sql);
+            $req = $this->pdo->prepare($sql);
+            $req->execute(array(":refP" => $refP, ":refE" => $refE, ":refB" => $refB, ":refM" => $refM, ":refR" => $refR, ":refS" => $refS, ":refET" => $refET, ":refCE" => $refCE, ":quantite" => $quantite));
             
-            $req->execute(array(":refP" => $refP, ":refE" => $refE, ":refB" => $refB, ":refM" => $refM, ":refR" => $refR, ":refS" => $refS, ":refET" => $refET, ":refCE" => $refCE['CE_ID'], ":quantite" => $quantite));
         }
 
 

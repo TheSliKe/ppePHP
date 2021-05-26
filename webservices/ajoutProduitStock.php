@@ -3,35 +3,14 @@
     include_once "model/dbbEntrepotApp.php";
     $bdd = new Bdd();
     
-    $etape = $_GET['step'];
-
-    switch ($etape) {
-        case '1':
-            $en = $_GET['en'];
-
-        break;
-        case '2':
-           
-
-        break;
-        case '3':
-        
-
-        break;
-        case '4':
     
 
-        break;
-        case '5':
-
-
-        break;
-    }
+    $bdd->insertStock($_GET['PRID'], $_GET['ENID'], $_GET['BAID'], $_GET['MOID'], $_GET['RAID'], $_GET['SEID'], $_GET['ETID'], $_GET['QTE'], $_GET['CEID']);
 
 
    
     $data = array(
-        'enid' => "oui"
+        'etape' => "7"
     );
     header('Content-Type: application/json');
     echo json_encode($data);
